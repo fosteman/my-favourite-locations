@@ -92,13 +92,16 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
                 performingReverseGeocoding = true
                 geocoder.reverseGeocodeLocation(newLocation, completionHandler: {
                     placemarks, error in
-                    if let error = error {
-                        print("Geocoding error \(error.localizedDescription)")
-                        return
+                    self.lastGeocodingError = error
+                    if error == nil, let p = placemarks, !p.isEmpty {
+                        self.placemark = p.last!
                     }
-                    if let places = placemarks {
-                        print("Found places: \(places)")
+                    else {
+                        self.placemark = nil
                     }
+                    
+                    self.performingReverseGeocoding = false
+                    self.updateLabels()
                 })
             }
         }
@@ -124,6 +127,19 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
             longitudeLabel.text = String(format: "%.8f", location.coordinate.longitude)
             tagButton.isEnabled = true
             messageLabel.text = ""
+            
+            if let placemark = placemark {
+                addressLabel.text = placemark.thoroughfare
+            }
+            else if performingReverseGeocoding {
+                addressLabel.text = "Searching for Address"
+            }
+            else if lastGeocodingError != nil {
+                addressLabel.text = "Error finding Address"
+            }
+            else {
+                addressLabel.text = "No Address Found"
+            }
         }
         else {
             latitudeLabel.text = ""
