@@ -33,8 +33,14 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
         } else if CLLocationManager.authorizationStatus() != .authorizedWhenInUse {
             locationManager.requestWhenInUseAuthorization()
         }
-        
-        startLocationManager()
+        if updatingLocation {
+            stopLocationManager()
+        }
+        else {
+            location = nil
+            lastLocationError = nil
+            startLocationManager()
+        }
         updateLabels()
     }
     
@@ -56,11 +62,27 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let newLocation = locations.last
+        let newLocation = locations.last!
         print("didUpdateLocation \(newLocation)")
-        location = newLocation
-        lastLocationError = nil
-        updateLabels()
+        
+        if newLocation.timestamp.timeIntervalSinceNow < -5 {
+            return
+        }
+        
+        if newLocation.horizontalAccuracy < 0 {
+            return
+        }
+        
+        if location == nil || location!.horizontalAccuracy > newLocation.horizontalAccuracy {
+            lastLocationError = nil
+            location = newLocation
+            
+            if newLocation.horizontalAccuracy <= locationManager.desiredAccuracy {
+                print("Done here")
+                stopLocationManager()
+            }
+            updateLabels()
+        }
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -109,6 +131,7 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
                 }
                 messageLabel.text = statusMsg
             }
+        configurableGetButton()
     }
     
     func startLocationManager() {
@@ -125,6 +148,15 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
             locationManager.stopUpdatingLocation()
             locationManager.delegate = nil
             updatingLocation = false
+        }
+    }
+    
+    func configurableGetButton() {
+        if updatingLocation {
+            getButton.setTitle("Stop", for: .normal)
+        }
+        else {
+            getButton.setTitle("Get Location", for: .normal)
         }
     }
 
