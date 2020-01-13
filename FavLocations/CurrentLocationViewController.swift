@@ -23,7 +23,11 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
     
     @IBAction func getLocation() {
         locationManager.delegate = self
-        if CLLocationManager.authorizationStatus() != .authorizedWhenInUse {
+        
+        if CLLocationManager.authorizationStatus() == .denied {
+            showLocationServicesDeniedAlert()
+            return
+        } else if CLLocationManager.authorizationStatus() != .authorizedWhenInUse {
             locationManager.requestWhenInUseAuthorization()
         }
         
@@ -49,12 +53,16 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         print(status)
         // ?
-        if status == .notDetermined {
-            locationManager.requestWhenInUseAuthorization()
-            return
-        }
     }
     
+    //MARK: Auxillary functions
+    
+    func showLocationServicesDeniedAlert() {
+        let alert = UIAlertController(title: "Location services unavailalbe", message: "Please enable the services in app settings", preferredStyle: .alert)
+        let ok = UIAlertAction(title: "Go to settings", style: .default, handler: nil)
+        alert.addAction(ok)
+        present(alert, animated: true, completion: nil)
+    }
 
 }
 
