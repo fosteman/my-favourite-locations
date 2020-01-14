@@ -25,7 +25,7 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
     var placemark: CLPlacemark?
     var performingReverseGeocoding = false
     var lastGeocodingError: Error?
-    
+    var timer: Timer?
     //MARK: Actions
     
     @IBAction func getLocation() {
@@ -201,6 +201,7 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
             locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
             locationManager.startUpdatingLocation()
             updatingLocation = true
+            timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(didTimeOut), userInfo: nil, repeats: false) // didTimeOut message is sent to self after 60 seconds.
         }
     }
     
@@ -209,6 +210,9 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
             locationManager.stopUpdatingLocation()
             locationManager.delegate = nil
             updatingLocation = false
+            if let timer = timer {
+                timer.invalidate() // if accurate location was found before timer fires, or when 'Stop' button is hit.
+            }
         }
     }
     
@@ -220,6 +224,15 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
             getButton.setTitle("Get Location", for: .normal)
         }
     }
+    
+    @objc func didTimeOut() { //@objc attribute identifies a method as being accessibl from Objective-C
 
+        print("Timeout!")
+        if location == nil { // if after 1 minute there's still no valid location, error is created
+            stopLocationManager()
+            lastLocationError = NSError(domain: "FavLocationErrorDomain", code: 1, userInfo: nil)
+            updateLabels()
+        }
+    }
 }
 
