@@ -166,7 +166,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="NhV-Ga-PED" kind="show" trigger="accessoryAction" id="S4S-tx-JIi"/>
+                                            <segue destination="NhV-Ga-PED" kind="show" identifier="catpicker" id="4JF-Jo-vXy"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -326,16 +326,16 @@
             </objects>
             <point key="canvasLocation" x="2617.5" y="-320.07042253521126"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Category Picker-->
         <scene sceneID="K9n-gU-X20">
             <objects>
-                <tableViewController id="NhV-Ga-PED" sceneMemberID="viewController">
+                <tableViewController id="NhV-Ga-PED" customClass="CategoryPicker" customModule="FavLocations" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="JAh-XQ-3cX">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Category" textLabel="I0l-zR-ur7" style="IBUITableViewCellStyleDefault" id="d5G-O7-rHx">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="category" textLabel="I0l-zR-ur7" style="IBUITableViewCellStyleDefault" id="d5G-O7-rHx">
                                 <rect key="frame" x="0.0" y="28" width="320" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="d5G-O7-rHx" id="Vej-W3-iDm">
