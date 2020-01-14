@@ -9,7 +9,7 @@
 import UIKit
 import CoreLocation
 
-class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate {
+class CurrentLocation: UIViewController, CLLocationManagerDelegate {
     //MARK: Outlets
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var latitudeLabel: UILabel!
