@@ -29,8 +29,8 @@ class CategoryPicker: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        for i in 0..<categories.count {
-            if categories[i] == categorySelection {
+        for (i, category) in categories.enumerated() {
+            if category == categorySelection {
                 rowSelection = IndexPath(row: i, section: 0)
                 break
             }
