@@ -146,5 +146,13 @@ class TagLocation: UITableViewController {
             controller.categorySelection = selectedCategory
         }
     }
+    
+    @IBAction func categoryPickerDidPickCategory(_ segue: UIStoryboardSegue) {
+        let controller = segue.source as! CategoryPicker
+           
+        selectedCategory = controller.categorySelection // assign the selected category from source (picker)
+        category.text = selectedCategory // fix the label
+        
 
+       }
 }

@@ -74,5 +74,14 @@ class CategoryPicker: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "categorypick" {
+            let cell = sender as! UITableViewCell
+            
+            if let indexPath = tableView.indexPath(for: cell) {
+                categorySelection = categories[indexPath.row]
+            }
+        }
+    }
 }
 
