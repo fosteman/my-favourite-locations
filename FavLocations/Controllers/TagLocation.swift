@@ -59,9 +59,29 @@ class TagLocation: UITableViewController {
         }
         
         date.text = format(date: Date())
+    
+        
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        // Target-action pattern
+        gestureRecognizer.cancelsTouchesInView = false
+        tableView.addGestureRecognizer(gestureRecognizer)
     }
     
     //MARK: Helpers
+    
+    @objc func hideKeyboard(_ gestureRecognizer: UIGestureRecognizer) {
+        let point = gestureRecognizer.location(in: tableView)
+        let indexPath = tableView.indexPathForRow(at: point)
+        
+        if let indexPath = indexPath,
+            indexPath.section == 0,
+            indexPath.row == 0 {
+            return // in case if the text view is tapped.
+        }
+        else {
+            locationDescription.resignFirstResponder()
+        }
+    }
     
     func string(from p: CLPlacemark) -> String {
         var text = ""

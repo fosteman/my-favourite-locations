@@ -126,12 +126,12 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="88"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="11" contentMode="scaleToFill" text="Location Description" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="QIS-h7-6BL">
-                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="11" contentMode="scaleToFill" keyboardDismissMode="onDrag" text="Location Description" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="QIS-h7-6BL">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="88"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                     <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
                                                 </textView>
                                             </subviews>
                                             <constraints>
