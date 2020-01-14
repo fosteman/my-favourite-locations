@@ -7,31 +7,89 @@
 //
 
 import UIKit
+import CoreLocation
+
+public let dateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateStyle = .medium
+    formatter.timeStyle = .short
+    return formatter
+}()
 
 class TagLocation: UITableViewController {
-
+    @IBOutlet weak var locationDescription: UITextView!
+    @IBOutlet weak var category: UILabel!
+    @IBOutlet weak var latitude: UILabel!
+    @IBOutlet weak var longitude: UILabel!
+    @IBOutlet weak var address: UILabel!
+    @IBOutlet weak var date: UILabel!
+    
+    var coordinate = CLLocationCoordinate2D(latitude: 0, longitude: 0)
+    
+    var placemark: CLPlacemark?
+    
+    //MARK: Actions
+    @IBAction func done(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func cancel(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    //MARK: Auxillary
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        locationDescription.text = ""
+        
+        category.text = ""
+        
+        latitude.text = String(format: "%.8f", coordinate.latitude)
+        longitude.text = String(format: "%.8f", coordinate.longitude)
+        
+        if let placemark = placemark {
+            address.text = string(from: placemark)
+        }
+        else {
+            address.text = "No Address Found"
+        }
+        
+        date.text = format(date: Date())
     }
-
+    
+    //MARK: Helpers
+    
+    func string(from p: CLPlacemark) -> String {
+        var text = ""
+        
+        if let s = p.subThoroughfare {
+            text += s + " "
+        }
+        if let s = p.thoroughfare {
+            text += s + ", "
+        }
+        if let s = p.locality {
+            text += s + ", "
+        }
+        if let s = p.administrativeArea {
+            text += s + " "
+        }
+        if let s = p.postalCode {
+            text += s + ", "
+        }
+        if let s = p.country {
+            text += s
+        }
+        return text
+    }
+    
+    func format(date: Date) -> String {
+        return dateFormatter.string(from: date)
+    }
+    
     // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 3
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
-    }
-
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
