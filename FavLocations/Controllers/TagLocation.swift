@@ -32,7 +32,9 @@ class TagLocation: UITableViewController {
     
     //MARK: Actions
     @IBAction func done(_ sender: Any) {
-        navigationController?.popViewController(animated: true)
+        let hudView = HudView.hud(inView: navigationController!.view, animated: true)
+        
+        hudView.text = "Tagged"
     }
     
     @IBAction func cancel(_ sender: Any) {

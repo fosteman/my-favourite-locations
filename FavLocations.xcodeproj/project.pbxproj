@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B813C96623CE20D500B44F6D /* HudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B813C96523CE20D500B44F6D /* HudView.swift */; };
 		B8A1324E23CE046A0099FE28 /* CategoryPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A1324D23CE046A0099FE28 /* CategoryPicker.swift */; };
 		B8BE25E723CBEB74008DF70F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BE25E623CBEB74008DF70F /* AppDelegate.swift */; };
 		B8BE25E923CBEB74008DF70F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BE25E823CBEB74008DF70F /* SceneDelegate.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B813C96523CE20D500B44F6D /* HudView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HudView.swift; sourceTree = "<group>"; };
 		B8A1324D23CE046A0099FE28 /* CategoryPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPicker.swift; sourceTree = "<group>"; };
 		B8BE25E323CBEB74008DF70F /* FavLocations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FavLocations.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8BE25E623CBEB74008DF70F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -43,6 +45,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B813C96423CE20C400B44F6D /* HUD */ = {
+			isa = PBXGroup;
+			children = (
+				B813C96523CE20D500B44F6D /* HudView.swift */,
+			);
+			path = HUD;
+			sourceTree = "<group>";
+		};
 		B8BE25DA23CBEB74008DF70F = {
 			isa = PBXGroup;
 			children = (
@@ -62,6 +72,7 @@
 		B8BE25E523CBEB74008DF70F /* FavLocations */ = {
 			isa = PBXGroup;
 			children = (
+				B813C96423CE20C400B44F6D /* HUD */,
 				B8DBB15723CDFD5600AAC269 /* Controllers */,
 				B8BE25E623CBEB74008DF70F /* AppDelegate.swift */,
 				B8BE25E823CBEB74008DF70F /* SceneDelegate.swift */,
@@ -160,6 +171,7 @@
 				B8BE25EB23CBEB74008DF70F /* CurrentLocation.swift in Sources */,
 				B8BE25E723CBEB74008DF70F /* AppDelegate.swift in Sources */,
 				B8BE25E923CBEB74008DF70F /* SceneDelegate.swift in Sources */,
+				B813C96623CE20D500B44F6D /* HudView.swift in Sources */,
 				B8A1324E23CE046A0099FE28 /* CategoryPicker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
