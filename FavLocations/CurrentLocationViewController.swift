@@ -77,6 +77,13 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
             return
         }
         
+        
+        // Calculate distance between new and previous reading.
+        var distance = CLLocationDistance(Double.greatestFiniteMagnitude)
+        if let location = location {
+            distance = newLocation.distance(from: location)
+        }
+        // if there's no previous reading, the greatestMagnitutde distance persist.
         if location == nil || location!.horizontalAccuracy > newLocation.horizontalAccuracy {
             lastLocationError = nil
             location = newLocation
@@ -84,6 +91,16 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
             if newLocation.horizontalAccuracy <= locationManager.desiredAccuracy {
                 print("Done here")
                 stopLocationManager()
+                // force reverse geocoding for the final location, even if request is being performed.
+                // I absolutely want an address for this final location, for it's most accurate so far.
+                
+                if distance > 0 {
+                    // By setting false, geocoding is forced on this location.
+                    performingReverseGeocoding = false
+                }
+                else if distance == 0 {
+                    // if distance is 0, then this location is the same as previous.
+                }
             }
             updateLabels()
             
@@ -105,6 +122,15 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
                 })
             }
         }
+        else if distance < 1 { // if coordinate from this reading is not significantly (1 meter) different from the previous, and, it's been more than 10 second since then, it's best to stop.
+            let timeInterval = newLocation.timestamp.timeIntervalSince(location!.timestamp)
+            if timeInterval > 10 {
+                print("Force done")
+                stopLocationManager()
+                updateLabels()
+            }
+        }
+        
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
