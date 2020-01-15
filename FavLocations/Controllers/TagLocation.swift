@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import CoreData
 
 public let dateFormatter: DateFormatter = {
     let formatter = DateFormatter()
@@ -30,16 +31,36 @@ class TagLocation: UITableViewController {
     
     var selectedCategory = "No Category"
     
+    var managedObjectContext: NSManagedObjectContext!
+    
+    var dateObject = Date()
+    
     //MARK: Actions
     @IBAction func done(_ sender: Any) {
         let delayInSeconds = 0.6
         let hudView = HudView.hud(inView: navigationController!.view, animated: true)
          hudView.text = "Tagged"
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + delayInSeconds, execute: {
-            hudView.hide()
-            self.navigationController?.popViewController(animated: true)
-        })
+        let locationToSave = Location(context: managedObjectContext)
+        
+        locationToSave.locationDescription = locationDescription.text
+        locationToSave.category = selectedCategory
+        locationToSave.latitude = coordinate.latitude
+        locationToSave.longitude = coordinate.longitude
+        locationToSave.date = dateObject
+        locationToSave.placemark = placemark
+        
+        do {
+            try managedObjectContext.save()
+            DispatchQueue.main.asyncAfter(deadline: .now() + delayInSeconds, execute: {
+                hudView.hide()
+                self.navigationController?.popViewController(animated: true)
+            })
+        }
+        catch {
+            fatalCoreDataError(error)
+        }
+        
     }
     
     @IBAction func cancel(_ sender: Any) {
@@ -65,7 +86,7 @@ class TagLocation: UITableViewController {
             address.text = "No Address Found"
         }
         
-        date.text = format(date: Date())
+        date.text = format(date: dateObject)
     
         
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
