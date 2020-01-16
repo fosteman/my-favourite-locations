@@ -16,10 +16,13 @@ class Locations: UITableViewController {
     lazy var locations: NSFetchedResultsController<Location> = {
         let fetchRequest = NSFetchRequest<Location>()
         fetchRequest.entity = Location.entity()
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true), ]
+        fetchRequest.sortDescriptors = [
+            NSSortDescriptor(key: "category", ascending: true),
+            NSSortDescriptor(key: "date", ascending: true),
+        ]
         fetchRequest.fetchBatchSize = 20
         
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: nil, cacheName: "Locations")
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: "category", cacheName: "Locations")
         
         fetchedResultsController.delegate = self
         return fetchedResultsController
@@ -71,10 +74,15 @@ class Locations: UITableViewController {
             }
         }
     }
-
     
-    //MARK: Helpers
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return locations.sections!.count
+    }
     
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let sectionInfo = locations.sections![section]
+        return sectionInfo.name
+    }
     
     /*
     // Override to support conditional editing of the table view.
