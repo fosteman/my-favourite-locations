@@ -14,6 +14,8 @@
 		B864254123CF964D0029D125 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B864254023CF964D0029D125 /* Helpers.swift */; };
 		B864254323D094480029D125 /* Locations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B864254223D094480029D125 /* Locations.swift */; };
 		B864254523D098BB0029D125 /* LocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B864254423D098BB0029D125 /* LocationCell.swift */; };
+		B864254823D0F3650029D125 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B864254723D0F3650029D125 /* MapKit.framework */; };
+		B864254A23D0F3F20029D125 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B864254923D0F3F20029D125 /* MapView.swift */; };
 		B8A1324E23CE046A0099FE28 /* CategoryPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A1324D23CE046A0099FE28 /* CategoryPicker.swift */; };
 		B8BE25E723CBEB74008DF70F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BE25E623CBEB74008DF70F /* AppDelegate.swift */; };
 		B8BE25E923CBEB74008DF70F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BE25E823CBEB74008DF70F /* SceneDelegate.swift */; };
@@ -32,6 +34,8 @@
 		B864254023CF964D0029D125 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		B864254223D094480029D125 /* Locations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Locations.swift; sourceTree = "<group>"; };
 		B864254423D098BB0029D125 /* LocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCell.swift; sourceTree = "<group>"; };
+		B864254723D0F3650029D125 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		B864254923D0F3F20029D125 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MapView.swift; path = FavLocations/Views/MapView.swift; sourceTree = SOURCE_ROOT; };
 		B8A1324D23CE046A0099FE28 /* CategoryPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPicker.swift; sourceTree = "<group>"; };
 		B8BE25E323CBEB74008DF70F /* FavLocations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FavLocations.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8BE25E623CBEB74008DF70F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B864254823D0F3650029D125 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,6 +65,7 @@
 			children = (
 				B813C96523CE20D500B44F6D /* HudView.swift */,
 				B864254423D098BB0029D125 /* LocationCell.swift */,
+				B864254923D0F3F20029D125 /* MapView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -84,11 +90,20 @@
 			path = Assets;
 			sourceTree = "<group>";
 		};
+		B864254623D0F3650029D125 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B864254723D0F3650029D125 /* MapKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B8BE25DA23CBEB74008DF70F = {
 			isa = PBXGroup;
 			children = (
 				B8BE25E523CBEB74008DF70F /* FavLocations */,
 				B8BE25E423CBEB74008DF70F /* Products */,
+				B864254623D0F3650029D125 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -201,6 +216,7 @@
 				B8BE25EB23CBEB74008DF70F /* CurrentLocation.swift in Sources */,
 				B813C96923CF4C4500B44F6D /* Model.xcdatamodeld in Sources */,
 				B864254123CF964D0029D125 /* Helpers.swift in Sources */,
+				B864254A23D0F3F20029D125 /* MapView.swift in Sources */,
 				B813C96D23CF4ED100B44F6D /* Location+CoreDataProperties.swift in Sources */,
 				B8BE25E723CBEB74008DF70F /* AppDelegate.swift in Sources */,
 				B864254523D098BB0029D125 /* LocationCell.swift in Sources */,
