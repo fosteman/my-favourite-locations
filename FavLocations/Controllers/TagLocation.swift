@@ -26,22 +26,41 @@ class TagLocation: UITableViewController {
     @IBOutlet weak var date: UILabel!
     
     var coordinate = CLLocationCoordinate2D(latitude: 0, longitude: 0)
-    
+    var descriptionText = ""
     var placemark: CLPlacemark?
-    
     var selectedCategory = "No Category"
+    var dateObject = Date()
     
     var managedObjectContext: NSManagedObjectContext!
     
-    var dateObject = Date()
+    var locationToEdit: Location? {
+        didSet {
+            if let l = locationToEdit {
+                title = "Edit Location"
+                descriptionText = l.locationDescription
+                selectedCategory = l.category
+                dateObject = l.date
+                coordinate = CLLocationCoordinate2D(latitude: l.latitude, longitude: l.longitude)
+                placemark = l.placemark
+            }
+            
+        }
+    }
     
     //MARK: Actions
     @IBAction func done(_ sender: Any) {
         let delayInSeconds = 0.6
         let hudView = HudView.hud(inView: navigationController!.view, animated: true)
-         hudView.text = "Tagged"
+        let locationToSave: Location
         
-        let locationToSave = Location(context: managedObjectContext)
+        if let t = locationToEdit {
+            hudView.text = "Updated"
+            locationToSave = t
+        }
+        else {
+            hudView.text = "Tagged"
+            locationToSave = Location(context: managedObjectContext)
+        }
         
         locationToSave.locationDescription = locationDescription.text
         locationToSave.category = selectedCategory
@@ -71,24 +90,16 @@ class TagLocation: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        locationDescription.text = ""
         
+        locationDescription.text = descriptionText
         category.text = selectedCategory
-        
         latitude.text = String(format: "%.8f", coordinate.latitude)
         longitude.text = String(format: "%.8f", coordinate.longitude)
         
-        if let placemark = placemark {
-            address.text = string(from: placemark)
-        }
-        else {
-            address.text = "No Address Found"
-        }
+        address.text = (placemark != nil) ? string(from: placemark!) : "No Address Found"
         
         date.text = format(date: dateObject)
     
-        
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         // Target-action pattern
         gestureRecognizer.cancelsTouchesInView = false

@@ -131,25 +131,26 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" tag="12" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" placeholderIntrinsicWidth="288" placeholderIntrinsicHeight="14.5" text="Address" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AKP-0y-Wn5">
-                                            <rect key="frame" x="16" y="29.5" width="288" height="14.5"/>
+                                            <rect key="frame" x="16" y="43" width="288" height="14.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="AKP-0y-Wn5" secondAttribute="bottom" constant="0.5" id="56c-0D-1Zi"/>
                                         <constraint firstItem="smN-Db-f8z" firstAttribute="trailing" secondItem="7Yz-Ss-xcb" secondAttribute="trailingMargin" id="5rf-NU-Q0P"/>
                                         <constraint firstItem="AKP-0y-Wn5" firstAttribute="width" secondItem="smN-Db-f8z" secondAttribute="width" id="QL3-mh-jnr"/>
                                         <constraint firstItem="AKP-0y-Wn5" firstAttribute="trailing" secondItem="7Yz-Ss-xcb" secondAttribute="trailingMargin" id="dOm-gF-G8i"/>
                                         <constraint firstItem="smN-Db-f8z" firstAttribute="top" secondItem="7Yz-Ss-xcb" secondAttribute="top" constant="4" id="dlw-rS-lq3"/>
                                         <constraint firstItem="AKP-0y-Wn5" firstAttribute="leading" secondItem="7Yz-Ss-xcb" secondAttribute="leadingMargin" id="jx8-63-zJI"/>
                                         <constraint firstItem="smN-Db-f8z" firstAttribute="leading" secondItem="7Yz-Ss-xcb" secondAttribute="leadingMargin" id="nBr-Lp-i4F"/>
-                                        <constraint firstItem="AKP-0y-Wn5" firstAttribute="top" secondItem="smN-Db-f8z" secondAttribute="bottomMargin" constant="13" id="xeJ-4C-HC6"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="addressLabel" destination="AKP-0y-Wn5" id="njk-LC-Uh0"/>
                                     <outlet property="descriptionLabel" destination="smN-Db-f8z" id="Yw3-gW-hXG"/>
+                                    <segue destination="gja-Dm-V7a" kind="show" identifier="editlocation" id="H2w-Jb-tze"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -483,4 +484,7 @@
     <resources>
         <image name="first" width="30" height="30"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="H2w-Jb-tze"/>
+    </inferredMetricsTieBreakers>
 </document>
