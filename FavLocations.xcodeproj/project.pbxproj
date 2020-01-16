@@ -35,7 +35,7 @@
 		B864254223D094480029D125 /* Locations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Locations.swift; sourceTree = "<group>"; };
 		B864254423D098BB0029D125 /* LocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCell.swift; sourceTree = "<group>"; };
 		B864254723D0F3650029D125 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		B864254923D0F3F20029D125 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MapView.swift; path = FavLocations/Views/MapView.swift; sourceTree = SOURCE_ROOT; };
+		B864254923D0F3F20029D125 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MapView.swift; path = FavLocations/Controllers/MapView.swift; sourceTree = SOURCE_ROOT; };
 		B8A1324D23CE046A0099FE28 /* CategoryPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPicker.swift; sourceTree = "<group>"; };
 		B8BE25E323CBEB74008DF70F /* FavLocations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FavLocations.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8BE25E623CBEB74008DF70F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -65,7 +65,6 @@
 			children = (
 				B813C96523CE20D500B44F6D /* HudView.swift */,
 				B864254423D098BB0029D125 /* LocationCell.swift */,
-				B864254923D0F3F20029D125 /* MapView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -133,6 +132,7 @@
 		B8DBB15723CDFD5600AAC269 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				B864254923D0F3F20029D125 /* MapView.swift */,
 				B8BE25EA23CBEB74008DF70F /* CurrentLocation.swift */,
 				B8DBB15823CDFD8000AAC269 /* TagLocation.swift */,
 				B8A1324D23CE046A0099FE28 /* CategoryPicker.swift */,

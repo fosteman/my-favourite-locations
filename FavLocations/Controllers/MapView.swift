@@ -10,9 +10,15 @@ import Foundation
 import MapKit
 import CoreData
 
-class MapViewController: UIViewController {
+class MapView: UIViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        updateLocations()
+    }
+    
     @IBOutlet weak var mapView: MKMapView!
     var managedObjectContext: NSManagedObjectContext!
+    var locations = [Location]()
     
     // MARK: Actions
     @IBAction func showUser() {
@@ -23,8 +29,21 @@ class MapViewController: UIViewController {
     @IBAction func showLocations() {
         
     }
+    
+    //MARK: helpers
+    
+    func updateLocations() {
+        
+        mapView.removeAnnotations(locations)
+        
+        let fetchRequest = NSFetchRequest<Location>()
+        fetchRequest.entity = Location.entity()
+        locations = try! managedObjectContext.fetch(fetchRequest)
+        
+        mapView.addAnnotations(locations)
+    }
 }
 
-extension MapViewController: MKMapViewDelegate {
+extension MapView: MKMapViewDelegate {
     
 }
