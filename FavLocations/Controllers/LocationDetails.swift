@@ -24,12 +24,23 @@ class LocationDetails: UITableViewController {
     @IBOutlet weak var longitude: UILabel!
     @IBOutlet weak var address: UILabel!
     @IBOutlet weak var date: UILabel!
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var addPhotoLabel: UILabel!
     
     var coordinate = CLLocationCoordinate2D(latitude: 0, longitude: 0)
     var descriptionText = ""
     var placemark: CLPlacemark?
     var selectedCategory = "No Category"
     var dateObject = Date()
+    var image: UIImage? {
+        didSet {
+            if let image = image {
+                imageView.image = image
+                imageView.isHidden = false
+                addPhotoLabel.text = ""
+            }
+        }
+    }
     
     var managedObjectContext: NSManagedObjectContext!
     
@@ -208,7 +219,6 @@ extension LocationDetails: UIImagePickerControllerDelegate, UINavigationControll
         present(alert, animated: true, completion: nil)
     }
     
-    
     func takePhoto() {
         let imagePicker = UIImagePickerController()
         imagePicker.sourceType = .camera
@@ -224,11 +234,13 @@ extension LocationDetails: UIImagePickerControllerDelegate, UINavigationControll
         imagePicker.allowsEditing = true
         present(imagePicker, animated: true, completion: nil)
     }
+    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage
         dismiss(animated: true, completion: nil)
     }
     
