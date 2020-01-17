@@ -160,7 +160,7 @@ extension Locations: NSFetchedResultsControllerDelegate {
                 print("*** NSFetchedResultsChangeMove (object)")
                 tableView.deleteRows(at: [indexPath!], with: .fade)
                 tableView.insertRows(at: [newIndexPath!], with: .fade)
-            @unknown default:
+            default:
                 fatalCoreDataError(fatalError("Unsupported operation Core Data"))
             }
     }
@@ -177,7 +177,7 @@ extension Locations: NSFetchedResultsControllerDelegate {
                 print("*** NSFetchedResultsChangeUpdate (section)")
             case .move:
                   print("*** NSFetchedResultsChangeMove (section)")
-        @unknown default:
+        default:
             fatalCoreDataError(fatalError("unknown method"))
         }
     }

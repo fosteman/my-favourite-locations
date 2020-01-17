@@ -26,6 +26,7 @@ class LocationDetails: UITableViewController {
     @IBOutlet weak var date: UILabel!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var addPhotoLabel: UILabel!
+    @IBOutlet weak var imageHeightConstraint: NSLayoutConstraint!
     
     var coordinate = CLLocationCoordinate2D(latitude: 0, longitude: 0)
     var descriptionText = ""
@@ -37,13 +38,13 @@ class LocationDetails: UITableViewController {
             if let image = image {
                 imageView.image = image
                 imageView.isHidden = false
+                imageHeightConstraint.constant = 260
                 addPhotoLabel.text = ""
+                tableView.reloadData()
             }
         }
     }
-    
     var managedObjectContext: NSManagedObjectContext!
-    
     var locationToEdit: Location? {
         didSet {
             if let l = locationToEdit {
@@ -57,6 +58,8 @@ class LocationDetails: UITableViewController {
             
         }
     }
+    var observer: Any!
+    
     
     // MARK: - Table view data source
 
@@ -80,6 +83,7 @@ class LocationDetails: UITableViewController {
         else {
             hudView.text = "Tagged"
             locationToSave = Location(context: managedObjectContext)
+            locationToSave.photoID = nil
         }
         
         locationToSave.locationDescription = locationDescription.text
@@ -88,6 +92,22 @@ class LocationDetails: UITableViewController {
         locationToSave.longitude = coordinate.longitude
         locationToSave.date = dateObject
         locationToSave.placemark = placemark
+        
+        //Save Image
+        if let image = image {
+            if !locationToSave.hasPhoto {
+                locationToSave.photoID = Location.nextPhotoID() as NSNumber
+            }
+            
+            if let data = image.jpegData(compressionQuality: 1) {
+                do {
+                    try data.write(to: locationToSave.photoURL, options: .atomic)
+                }
+                catch {
+                    print("Error writing file \(error.localizedDescription)")
+                    }
+                }
+            }
         
         do {
             try managedObjectContext.save()
@@ -111,19 +131,44 @@ class LocationDetails: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if let location = locationToEdit {
+            title = "Edit Location"
+            if location.hasPhoto {
+                self.image = location.photoImage
+            }
+        }
+        
         locationDescription.text = descriptionText
         category.text = selectedCategory
         latitude.text = String(format: "%.8f", coordinate.latitude)
         longitude.text = String(format: "%.8f", coordinate.longitude)
-        
         address.text = (placemark != nil) ? string(from: placemark!) : "No Address Found"
-        
         date.text = format(date: dateObject)
-    
+        
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         // Target-action pattern
         gestureRecognizer.cancelsTouchesInView = false
         tableView.addGestureRecognizer(gestureRecognizer)
+        
+        listenForBackgroundNotification()
+    }
+    
+    deinit {
+        print("*** deinit")
+        NotificationCenter.default.removeObserver(observer)
+    }
+    
+    func listenForBackgroundNotification() {
+        observer = NotificationCenter.default.addObserver(forName: UIApplication.didEnterBackgroundNotification, object: nil, queue: OperationQueue.main) {
+            [weak self] _ in
+            
+            if let weakSelf = self {
+                if weakSelf.presentedViewController != nil {
+                    weakSelf.dismiss(animated: true, completion: nil)
+                }
+                weakSelf.locationDescription.resignFirstResponder()
+            }
+        }
     }
     
     //MARK: Helpers
