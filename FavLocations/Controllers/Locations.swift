@@ -55,6 +55,7 @@ class Locations: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "location", for: indexPath) as! LocationCell
+        
         let location = locations.object(at: indexPath)
         
         cell.configure(for: location)
