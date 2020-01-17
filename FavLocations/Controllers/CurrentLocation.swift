@@ -242,7 +242,7 @@ class CurrentLocation: UIViewController, CLLocationManagerDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "taglocation" {
-            let controller = segue.destination as! TagLocation
+            let controller = segue.destination as! LocationDetails
             controller.coordinate = location!.coordinate
             controller.placemark = placemark
             controller.managedObjectContext = managedObjectContext

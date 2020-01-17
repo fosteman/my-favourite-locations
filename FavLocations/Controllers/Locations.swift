@@ -124,7 +124,7 @@ class Locations: UITableViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "editlocation" {
-            let controller = segue.destination as! TagLocation
+            let controller = segue.destination as! LocationDetails
             
             controller.managedObjectContext = managedObjectContext
             

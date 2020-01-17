@@ -21,8 +21,30 @@ class MapView: UIViewController {
     }
     
     @IBOutlet weak var mapView: MKMapView!
-    var managedObjectContext: NSManagedObjectContext!
+    var managedObjectContext: NSManagedObjectContext! {
+        didSet {
+            NotificationCenter.default.addObserver(forName: Notification.Name.NSManagedObjectContextObjectsDidChange, object: managedObjectContext, queue: OperationQueue.main) {
+                _ in
+                if self.isViewLoaded {
+                    self.updateLocations()
+                }
+            }
+        }
+    }
     var locations = [Location]()
+    
+    //MARK: Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "editlocation" {
+            let controller = segue.destination as! LocationDetails
+            controller.managedObjectContext = managedObjectContext
+            
+            let button = sender as! UIButton
+            let location = locations[button.tag]
+            controller.locationToEdit = location
+        }
+    }
     
     // MARK: Actions
     @IBAction func showUser() {
@@ -49,7 +71,7 @@ class MapView: UIViewController {
     }
     
     @objc func showLocationDetails(_ sender: UIButton) {
-        
+        performSegue(withIdentifier: "editlocation", sender: sender)
     }
 }
 

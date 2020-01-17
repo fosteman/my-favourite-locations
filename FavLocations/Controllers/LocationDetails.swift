@@ -17,7 +17,7 @@ public let dateFormatter: DateFormatter = {
     return formatter
 }()
 
-class TagLocation: UITableViewController {
+class LocationDetails: UITableViewController {
     @IBOutlet weak var locationDescription: UITextView!
     @IBOutlet weak var category: UILabel!
     @IBOutlet weak var latitude: UILabel!
