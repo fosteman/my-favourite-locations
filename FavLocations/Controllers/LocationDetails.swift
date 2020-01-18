@@ -187,29 +187,7 @@ class LocationDetails: UITableViewController {
         }
     }
     
-    func string(from p: CLPlacemark) -> String {
-        var text = ""
-        
-        if let s = p.subThoroughfare {
-            text += s + " "
-        }
-        if let s = p.thoroughfare {
-            text += s + ", "
-        }
-        if let s = p.locality {
-            text += s + ", "
-        }
-        if let s = p.administrativeArea {
-            text += s + " "
-        }
-        if let s = p.postalCode {
-            text += s + ", "
-        }
-        if let s = p.country {
-            text += s
-        }
-        return text
-    }
+    
     
     func format(date: Date) -> String {
         return dateFormatter.string(from: date)
