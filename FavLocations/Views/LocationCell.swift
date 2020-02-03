@@ -15,7 +15,9 @@ class LocationCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        thumbnailView.layer.cornerRadius = thumbnailView.bounds.size.width / 2
+        thumbnailView.clipsToBounds = true
+        separatorInset = UIEdgeInsets(top: 0, left: 82, bottom: 0, right: 0)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
